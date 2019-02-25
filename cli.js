@@ -64,9 +64,11 @@ process.stdin.on('keypress', (ch, key) => {
           : 'GUI macOS applications'
       };
     }
+
     if (choice === '') {
       return new inquirer.Separator();
     }
+
     return choice;
   });
 
