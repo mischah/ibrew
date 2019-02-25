@@ -1,6 +1,9 @@
-# ibrew 🍻
-
 [![npm version](https://img.shields.io/npm/v/ibrew.svg?style=flat)](https://www.npmjs.org/package/ibrew)
+[![Build Status](https://travis-ci.org/mischah/ibrew.svg?branch=master)](https://travis-ci.org/mischah/ibrew)
+[![devDependency Status](https://david-dm.org/mischah/ibrew/dev-status.svg)](https://david-dm.org/mischah/ibrew#info=devDependencies)
+[![Dependency Status](https://david-dm.org/mischah/ibrew/status.svg)](https://david-dm.org/mischah/ibrew#info=Dependencies)
+
+# ibrew 🍻
 
 > Interactive CLI to browse Homebrew search results and choose a package to install.
 
