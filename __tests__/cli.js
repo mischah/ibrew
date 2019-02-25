@@ -1,7 +1,5 @@
 const execa = require('execa');
 const semver = require('semver');
-const logSymbols = require('log-symbols');
-const getStream = require('get-stream');
 
 const path = require('path');
 
@@ -37,14 +35,14 @@ describe('Shows help', () => {
 describe('Prints error messages', () => {
   test('when entering multiple search terms', async () => {
     await expect(execa(cli, ['yarn', 'npm'])).rejects.toThrow(
-      `\n${logSymbols.error} Invalid input. Please check the help below:`
+      '✖ Invalid input. Please check the help below:'
     );
   });
 
   test('when no package is found', async () => {
     const { stderr } = await execa(cli, ['hahaha']);
     expect(stderr).toMatch(
-      `${logSymbols.info} No formula or cask found for \`hahaha\``
+      'ℹ No formula or cask found for \`hahaha\`'
     );
   });
 });
@@ -61,6 +59,7 @@ describe('Inquirer search results list', async () => {
 
     stream.stdout.on('data', data => {
       response = response + data.toString().trim();
+      stream.stdout.destroy();
     });
 
     await wait(10000);

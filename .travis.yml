@@ -1,5 +1,6 @@
 os: osx
 language: node_js
+before_install: brew update
 node_js:
   - 8
   - 10
