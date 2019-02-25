@@ -40,7 +40,7 @@ if (cli.input.length === 0 && cli.flags.h === true) {
 
 if (cli.input.length > 1) {
   console.log(
-    `\n${logSymbols.error} Invalid input. Please check the help below:`
+    `${logSymbols.error} Invalid input. Please check the help below:`
   );
   cli.showHelp();
 }

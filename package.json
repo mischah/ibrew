@@ -26,6 +26,10 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/mischah/ibrew#readme",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
   "dependencies": {
     "execa": "^1.0.0",
     "get-stream": "^4.1.0",
@@ -34,5 +38,9 @@
     "log-symbols": "^2.2.0",
     "meow": "^5.0.0",
     "ora": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest-cli": "^24.1.0",
+    "semver": "^5.6.0"
   }
 }
