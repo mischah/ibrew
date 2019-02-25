@@ -41,9 +41,7 @@ describe('Prints error messages', () => {
 
   test('when no package is found', async () => {
     const { stderr } = await execa(cli, ['hahaha']);
-    expect(stderr).toMatch(
-      'ℹ No formula or cask found for \`hahaha\`'
-    );
+    expect(stderr).toMatch('ℹ No formula or cask found for `hahaha`');
   });
 });
 

@@ -28,7 +28,14 @@
   "homepage": "https://github.com/mischah/ibrew#readme",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "npm run test --silent -- --watch",
+    "pretest": "npm run lint:fix --silent",
+    "lint": "eslint **/*.js",
+    "lint:fix": "npm run lint --silent -- --fix",
+    "format": "prettier \"./**/*.{js,json}\"",
+    "format:write": "npm run format --silent -- --write",
+    "format:write:all": "npm run format --silent -- --write",
+    "format:check:all": "npm run format --silent -- --check"
   },
   "dependencies": {
     "execa": "^1.0.0",
@@ -40,7 +47,46 @@
     "ora": "^3.1.0"
   },
   "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-baumeister": "^1.2.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-config-xo": "^0.26.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-unicorn": "^7.1.0",
+    "husky": "^1.3.1",
     "jest-cli": "^24.1.0",
+    "lint-staged": "^8.1.4",
+    "prettier": "^1.16.4",
     "semver": "^5.6.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "baumeister",
+      "prettier",
+      "prettier/unicorn"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "post-merge": "npm install",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js,json}": [
+        "npm run format:write",
+        "git add"
+      ],
+      "*.js": [
+        "npm run lint:fix",
+        "git add"
+      ]
+    }
   }
 }
