@@ -28,7 +28,7 @@ const cli = meow(
 );
 
 const [searchTerm] = cli.input;
-const spinner = ora('Searching for packages').start();
+const spinner = ora('Searching for packages');
 
 if (cli.input.length === 0 && cli.flags.v === true) {
 	cli.showVersion();
@@ -53,6 +53,7 @@ process.stdin.on('keypress', (ch, key) => {
 });
 
 (async () => {
+	spinner.start();
 	const { stdout: result } = await execa('brew', ['search', searchTerm]);
 	const choices = result.split('\n').map(choice => {
 		if (choice.includes('==>')) {
