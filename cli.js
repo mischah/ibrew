@@ -17,7 +17,7 @@ const cli = meow(
 	  --version, -v   Print version number
 
 	Example
-	  $ ibrew ascii
+	  $ ibrew say
 `,
 	{
 		alias: {
