@@ -10,7 +10,7 @@ const getStream = require('get-stream');
 const cli = meow(
   `
   Usage
-    $ ibrew <searchterm>
+    $ ibrew [searchterm]
 
   Options
     --help, -h      Show help
@@ -54,7 +54,7 @@ process.stdin.on('keypress', (ch, key) => {
 
 (async () => {
   spinner.start();
-  const { stdout: result } = await execa('brew', ['search', searchTerm]);
+  const { stdout: result } = await execa('brew', ['search', searchTerm || '']);
   const choices = result.split('\n').map(choice => {
     if (choice.includes('==>')) {
       return {
