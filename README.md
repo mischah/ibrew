@@ -44,6 +44,16 @@ npx ibrew say
 - [Homebrew](https://brew.sh)
 - Node.js
 
+## Related
+
+Awesome interactive CLI apps:
+
+- [itunes-remote](https://github.com/mischah/itunes-remote) – Control iTunes via CLI :notes:
+- [ntl](https://github.com/ruyadorno/ntl) – Interactive cli menu to list/run npm tasks
+- [itrash](https://github.com/ruyadorno/itrash) – Interactively selects files to delete from current folder in the CLI
+- [ipt](https://github.com/ruyadorno/ipt) – Interactive Pipe To: The Node.js cli interactive workflow
+
+
 ## License
 
 [MIT](LICENSE) © 2019 [Michael Kühnel](http://michael-kuehnel.de)
