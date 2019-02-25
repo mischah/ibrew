@@ -35,7 +35,11 @@
     "format": "prettier \"./**/*.{js,json}\"",
     "format:write": "npm run format --silent -- --write",
     "format:write:all": "npm run format --silent -- --write",
-    "format:check:all": "npm run format --silent -- --check"
+    "format:check:all": "npm run format --silent -- --check",
+    "release": "standard-version --no-verify",
+    "release:patch": "npm run release --silent -- --release-as patch",
+    "release:minor": "npm run release --silent -- --release-as minor",
+    "release:major": "npm run release --silent -- --release-as major"
   },
   "dependencies": {
     "execa": "^1.0.0",
@@ -59,7 +63,8 @@
     "jest-cli": "^24.1.0",
     "lint-staged": "^8.1.4",
     "prettier": "^1.16.4",
-    "semver": "^5.6.0"
+    "semver": "^5.6.0",
+    "standard-version": "^5.0.0"
   },
   "eslintConfig": {
     "extends": [
