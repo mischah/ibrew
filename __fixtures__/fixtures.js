@@ -3,7 +3,7 @@ module.exports = {
   Interactive CLI to browse Homebrew search results and choose a package to install.
 
   Usage
-    $ ibrew <searchterm>
+    $ ibrew [searchterm]
 
   Options
     --help, -h      Show help
