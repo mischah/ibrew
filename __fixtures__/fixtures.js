@@ -6,6 +6,7 @@ module.exports = {
     $ ibrew [searchterm]
 
   Options
+    --size, -s      Set number of lines for interactive list (default: 8)
     --help, -h      Show help
     --version, -v   Print version number
 

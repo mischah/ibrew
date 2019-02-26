@@ -24,7 +24,7 @@ npm install -g ibrew
 
 ## Usage
 
-Search Homebrew packages via ibrew with `ibrew <searchterm>`:
+Search Homebrew packages via ibrew with `ibrew [searchterm[`:
 
 ```
 ibrew say
@@ -38,6 +38,13 @@ bypass **npm install** and run it at once using **npx**:
 npx ibrew say
 ```
 
+### Options
+
+```
+--size, -s      Set number of lines for interactive list (default: 8)
+--help, -h      Show help
+--version, -v   Print version number
+```
 ## Requirements
 
 - macOS
