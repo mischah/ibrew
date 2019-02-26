@@ -13,6 +13,7 @@ const cli = meow(
     $ ibrew [searchterm]
 
   Options
+    --size, -s      Set number of lines for interactive list (default: 8)
     --help, -h      Show help
     --version, -v   Print version number
 
@@ -23,6 +24,12 @@ const cli = meow(
     alias: {
       h: 'help',
       v: 'version'
+    },
+    flags: {
+      size: {
+        type: 'string',
+        alias: 's'
+      }
     }
   }
 );
@@ -90,7 +97,7 @@ process.stdin.on('keypress', (ch, key) => {
       type: 'list',
       name: 'package',
       message: 'Which package you would like to install?',
-      pageSize: 10,
+      pageSize: Number(cli.flags.size) || 8,
       choices
     }
   ]);
