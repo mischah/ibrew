@@ -35,13 +35,13 @@ describe('Shows help', () => {
 describe('Prints error messages', () => {
   test('when entering multiple search terms', async () => {
     await expect(execa(cli, ['yarn', 'npm'])).rejects.toThrow(
-      '✖ Invalid input. Please check the help below:'
+      /Invalid input. Please check the help below:/
     );
   });
 
   test('when no package is found', async () => {
     const { stderr } = await execa(cli, ['hahaha']);
-    expect(stderr).toMatch('ℹ No formula or cask found for `hahaha`');
+    expect(stderr).toMatch(/No formula or cask found for `hahaha`/);
   });
 });
 
