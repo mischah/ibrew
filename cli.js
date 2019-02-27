@@ -7,6 +7,8 @@ const inquirer = require('inquirer');
 const ora = require('ora');
 const getStream = require('get-stream');
 
+const search = require('./lib/search');
+
 const cli = meow(
   `
   Usage
@@ -61,36 +63,18 @@ process.stdin.on('keypress', (ch, key) => {
 
 (async () => {
   spinner.start();
-  const { stdout: result } = await execa('brew', ['search', searchTerm || '']);
-  const choices = result.split('\n').map(choice => {
-    if (choice.includes('==>')) {
-      return {
-        name: choice.substring(4),
-        disabled: choice.includes('Formulae')
-          ? 'Command line packages'
-          : 'GUI macOS applications'
-      };
-    }
-
-    if (choice === '') {
-      return new inquirer.Separator();
-    }
-
-    return choice;
-  });
-
-  choices.push(new inquirer.Separator());
-
-  if (result) {
-    spinner.succeed(
-      `Found ${
-        choices.filter(choice => typeof choice === 'string').length
-      } packages\n`
-    );
-  } else {
+  const result = await search.getSearchResults(searchTerm);
+  if (!result) {
     spinner.info(`No formula or cask found for \`${searchTerm}\`.`);
     process.exit(0);
   }
+
+  const choices = search.getInquirerChoices(result);
+  spinner.succeed(
+    `Found ${
+      choices.filter(choice => typeof choice === 'string').length
+    } packages\n`
+  );
 
   const selected = await inquirer.prompt([
     {
