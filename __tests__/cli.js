@@ -4,7 +4,8 @@ const semver = require('semver');
 const path = require('path');
 
 const cli = path.join(__dirname, '../', 'cli.js');
-const fixtures = require('../__fixtures__/fixtures');
+const fixtures = require('./__fixtures__/fixtures');
+const { wait } = require('./test-helpers');
 
 describe('Prints a valid version number', () => {
   test('when using `--version` flag', async () => {
@@ -49,10 +50,6 @@ describe('Inquirer search results list', async () => {
   let response;
 
   beforeAll(async () => {
-    const wait = ms =>
-      new Promise(resolve => {
-        setTimeout(resolve, ms);
-      });
     const stream = execa(cli, ['davmail']);
 
     stream.stdout.on('data', data => {
@@ -60,7 +57,7 @@ describe('Inquirer search results list', async () => {
       stream.stdout.destroy();
     });
 
-    await wait(10000);
+    await wait(10);
     response = response.split('\n');
   });
 
@@ -87,5 +84,29 @@ describe('Inquirer search results list', async () => {
     expect(response.find(line => line.includes('──────────────'))).toMatch(
       '──────────────'
     );
+  });
+});
+
+describe('Inquirer installed packages list', async () => {
+  let response;
+
+  beforeAll(async () => {
+    const stream = execa(cli, ['--upgrade']);
+
+    stream.stdout.on('data', data => {
+      response = response + data.toString().trim();
+      stream.stdout.destroy();
+    });
+
+    await wait(5);
+    response = response.split('\n');
+  });
+
+  test('asks the correct question', () => {
+    expect(response[0]).toMatch('Which packages you would like to upgrade?');
+  });
+
+  test('renders installed packages as checkbox', () => {
+    expect(response.find(line => line.includes('cowsay'))).toMatch('◯ cowsay');
   });
 });
