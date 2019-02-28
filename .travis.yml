@@ -1,6 +1,8 @@
 os: osx
 language: node_js
-before_install: brew update
+before_install:
+  - brew update
+  - brew install cowsay
 node_js:
   - 8
   - 10

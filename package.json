@@ -1,7 +1,7 @@
 {
   "name": "ibrew",
   "version": "1.0.0",
-  "description": "Interactive CLI to browse Homebrew search results and choose a package to install.",
+  "description": "Interactive CLI for Homebrew – the missing package manager for macOS.",
   "bin": "cli.js",
   "repository": "mischah/ibrew",
   "engines": {

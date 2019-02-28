@@ -5,7 +5,12 @@
 
 # ibrew 🍻
 
-> Interactive CLI to browse Homebrew search results and choose a package to install.
+> Interactive CLI for Homebrew – the missing package manager for macOS.
+
+`ibrew` lets you use [Homebrew](https://brew.sh/) in a different way:
+
+- Browse Homebrew search results and choose a package to install.
+- Browse installed packages and select the ones you’d like to upgrade.
 
 <br>
 <p align="center">
@@ -24,27 +29,32 @@ npm install -g ibrew
 
 ## Usage
 
-Search Homebrew packages via ibrew with `ibrew [searchterm[`:
+```shell
+$ ibrew [searchterm] [options]
 
+  Options
+    --upgrade, -u   Lists installed packages to choose the ones to upgrade
+    --size, -s      Set number of lines for interactive list
+    --help, -h      Show help
+    --version, -v   Print version number
+
+  Examples
+    $ ibrew say
+    ✔ Found 2 packages
+
+    ? Which package you would like to install? (Use arrow keys)
+    ❯ cowsay
+      ponysay
+
+    $ ibrew --upgrade
+    Found 137 packages
+
+    ? Which packages you would like to upgrade? (Press <space> to select, <a> to toggle all)
+    ❯ ◯ adns
+      ◯ aom
+      ◯ asciinema
 ```
-ibrew say
-```
 
-**OR**
-
-bypass **npm install** and run it at once using **npx**:
-
-```sh
-npx ibrew say
-```
-
-### Options
-
-```
---size, -s      Set number of lines for interactive list (default: 8)
---help, -h      Show help
---version, -v   Print version number
-```
 ## Requirements
 
 - macOS
