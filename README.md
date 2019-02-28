@@ -1,5 +1,6 @@
 [![npm version](https://img.shields.io/npm/v/ibrew.svg?style=flat)](https://www.npmjs.org/package/ibrew)
 [![Build Status](https://travis-ci.org/mischah/ibrew.svg?branch=master)](https://travis-ci.org/mischah/ibrew)
+[![Coverage Status](https://coveralls.io/repos/github/mischah/ibrew/badge.svg?branch=master)](https://coveralls.io/github/mischah/ibrew?branch=master)
 [![devDependency Status](https://david-dm.org/mischah/ibrew/dev-status.svg)](https://david-dm.org/mischah/ibrew#info=devDependencies)
 [![Dependency Status](https://david-dm.org/mischah/ibrew/status.svg)](https://david-dm.org/mischah/ibrew#info=Dependencies)
 
