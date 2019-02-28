@@ -7,7 +7,8 @@ module.exports = {
 
   Options
     --upgrade, -u   Lists installed packages to choose the ones to upgrade
-    --size, -s      Set number of lines for interactive list
+    --remove, -r   Lists installed packages to choose the ones to uninstall
+    --size, -s      Set number of lines for the interactive lists
     --help, -h      Show help
     --version, -v   Print version number
 
@@ -20,9 +21,17 @@ module.exports = {
       ponysay
 
     $ ibrew --upgrade
-    Found 137 packages
+    ✔ Found 137 packages
 
     ? Which packages you would like to upgrade? (Press <space> to select, <a> to toggle all, <i> to invert selection)
+    ❯ ◯ adns
+      ◯ aom
+      ◯ asciinema
+
+    $ ibrew --remove
+    ✔ Found 137 packages
+
+    ? Which packages you would like to uninstall? (Press <space> to select, <a> to toggle all, <i> to invert selection)
     ❯ ◯ adns
       ◯ aom
       ◯ asciinema

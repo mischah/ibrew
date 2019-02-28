@@ -8,17 +8,20 @@
 
 > Interactive CLI for Homebrew – the missing package manager for macOS.
 
-`ibrew` lets you use [Homebrew](https://brew.sh/) in a different way:
-
-- Browse Homebrew search results and choose a package to install.
-- Browse installed packages and select the ones you’d like to upgrade.
-
-<br>
 <p align="center">
   <a href="https://asciinema.org/a/229587">
     <img alt="Demo animation" width="700" src="https://gitcdn.xyz/cdn/mischah/ibrew/19be4c127197f92ff6c4b24c746d6d08ceabd7c7/demo.svg" />
     </a>
 </p>
+
+`ibrew` lets you use the following [Homebrew](https://brew.sh/) features in a different way:
+
+- **Install packages**
+  - Browse Homebrew search results and choose a package to install.
+- **Upgrade packages**
+  - Browse installed packages and select the ones you’d like to upgrade.
+- **Uninstall packages**
+  - Browser installed packages and select the ones you’d like to remove.
 
 ## Install
 
@@ -34,10 +37,11 @@ npm install -g ibrew
 $ ibrew [searchterm] [options]
 
   Options
-    --upgrade, -u   Lists installed packages to choose the ones to upgrade
-    --size, -s      Set number of lines for interactive list
-    --help, -h      Show help
-    --version, -v   Print version number
+    --upgrade, -u      Lists installed packages to choose the ones to upgrade
+    --remove, -r       Lists installed packages to choose the ones to remove
+    --size, -s         Set number of lines for the interactive lists
+    --help, -h         Show help
+    --version, -v      Print version number
 
   Examples
     $ ibrew say
@@ -48,9 +52,17 @@ $ ibrew [searchterm] [options]
       ponysay
 
     $ ibrew --upgrade
-    Found 137 packages
+    ✔ Found 137 packages
 
     ? Which packages you would like to upgrade? (Press <space> to select, <a> to toggle all)
+    ❯ ◯ adns
+      ◯ aom
+      ◯ asciinema
+
+    $ ibrew --remove
+    ✔ Found 137 packages
+
+    ? Which packages you would like to uninstall? (Press <space> to select, <a> to toggle all, <i> to invert selection)
     ❯ ◯ adns
       ◯ aom
       ◯ asciinema

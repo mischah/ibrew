@@ -10,6 +10,7 @@ const search = require('./lib/search');
 const install = require('./lib/install');
 const installed = require('./lib/installed');
 const upgrade = require('./lib/upgrade');
+const remove = require('./lib/remove');
 
 const cli = meow(
   `
@@ -18,7 +19,8 @@ const cli = meow(
 
   Options
     --upgrade, -u   Lists installed packages to choose the ones to upgrade
-    --size, -s      Set number of lines for interactive list
+    --remove, -r   Lists installed packages to choose the ones to uninstall
+    --size, -s      Set number of lines for the interactive lists
     --help, -h      Show help
     --version, -v   Print version number
 
@@ -31,9 +33,17 @@ const cli = meow(
       ponysay
 
     $ ibrew --upgrade
-    Found 137 packages
+    ✔ Found 137 packages
 
     ? Which packages you would like to upgrade? (Press <space> to select, <a> to toggle all, <i> to invert selection)
+    ❯ ◯ adns
+      ◯ aom
+      ◯ asciinema
+
+    $ ibrew --remove
+    ✔ Found 137 packages
+
+    ? Which packages you would like to uninstall? (Press <space> to select, <a> to toggle all, <i> to invert selection)
     ❯ ◯ adns
       ◯ aom
       ◯ asciinema
@@ -51,11 +61,27 @@ const cli = meow(
       upgrade: {
         type: 'boolean',
         alias: 'u'
+      },
+      remove: {
+        type: 'boolean',
+        alias: 'r'
       }
     }
   }
 );
 
+const allowedFlags = [
+  'upgrade',
+  'u',
+  'remove',
+  'r',
+  'size',
+  's',
+  'help',
+  'h',
+  'version',
+  'v'
+];
 const [searchTerm] = cli.input;
 const spinner = ora();
 const defaultPageSize = {
@@ -73,7 +99,8 @@ if (cli.input.length === 0 && cli.flags.h === true) {
 
 if (
   cli.input.length > 1 ||
-  (cli.input.length !== 0 && cli.flags.upgrade === true)
+  (cli.input.length !== 0 && cli.flags.upgrade === true) ||
+  !Object.keys(cli.flags).every(flag => allowedFlags.includes(flag))
 ) {
   console.log(
     `${logSymbols.error} Invalid input. Please check the help below:`
@@ -88,25 +115,15 @@ process.stdin.on('keypress', (ch, key) => {
   }
 });
 
+// List installed packages to upgrade
 if (cli.flags.upgrade === true) {
   (async () => {
-    spinner.start(`Retrieving installed packages`);
-    const installedPackages = await installed.getInstalledPackages();
-    const choices = installedPackages.split('\n');
-    spinner.succeed(`Found ${choices.length} packages\n`);
-    const selected = await inquirer.prompt([
-      {
-        type: 'checkbox',
-        name: 'packages',
-        message: 'Which packages you would like to upgrade?',
-        pageSize: Number(cli.flags.size) || defaultPageSize.installed,
-        validate: selection =>
-          selection.length === 0
-            ? 'Please select at least one package to upgrade.'
-            : true,
-        choices
-      }
-    ]);
+    const selected = await installed.selectInstalledPackage({
+      message: 'Which packages you would like to upgrade?',
+      validationError: 'Please select at least one package to upgrade.',
+      pageSize: Number(cli.flags.size) || defaultPageSize.installed,
+      spinner
+    });
 
     spinner.start(`Upgrading selected packages(s)`);
     const stream = upgrade.getOutput(selected.packages);
@@ -127,7 +144,37 @@ if (cli.flags.upgrade === true) {
   })();
 }
 
-if (cli.flags.upgrade === false) {
+// List installed packages to remove
+if (cli.flags.remove === true) {
+  (async () => {
+    const selected = await installed.selectInstalledPackage({
+      message: 'Which packages you would like to uninstall?',
+      validationError: 'Please select at least one package to uninstall.',
+      pageSize: Number(cli.flags.size) || defaultPageSize.installed,
+      spinner
+    });
+
+    spinner.start(`Uninstalling selected packages(s)`);
+    const stream = remove.getOutput(selected.packages);
+    stream.stdout.on('data', data => {
+      spinner.stop();
+      console.log(data.toString().trim());
+    });
+    stream.stderr.on('data', data => {
+      spinner.stop();
+      console.log(
+        data.toString() &&
+          data
+            .toString()
+            .trim()
+            .replace(/Error/gm, `${logSymbols.error} Error`)
+      );
+    });
+  })();
+}
+
+// Search for a package to install
+if (cli.flags.upgrade === false && cli.flags.remove === false) {
   (async () => {
     spinner.start('Searching for packages');
     const result = await search.getSearchResults(searchTerm);
