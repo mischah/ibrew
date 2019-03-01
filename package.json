@@ -80,6 +80,9 @@
       "unicorn/no-process-exit": "warning"
     }
   },
+  "eslintIgnore": [
+    "coverage"
+  ],
   "prettier": {
     "singleQuote": true
   },

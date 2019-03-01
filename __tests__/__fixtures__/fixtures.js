@@ -21,15 +21,15 @@ module.exports = {
       ponysay
 
     $ ibrew --upgrade
-    ✔ Found 137 packages
+    ✔ Found 3 outdated packages
 
     ? Which packages you would like to upgrade? (Press <space> to select, <a> to toggle all, <i> to invert selection)
-    ❯ ◯ adns
-      ◯ aom
-      ◯ asciinema
+    ❯ ◯ git
+      ◯ lynx
+      ◯ watchman
 
     $ ibrew --remove
-    ✔ Found 137 packages
+    ✔ Found 136 installed packages
 
     ? Which packages you would like to uninstall? (Press <space> to select, <a> to toggle all, <i> to invert selection)
     ❯ ◯ adns

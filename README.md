@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://asciinema.org/a/229587">
-    <img alt="Demo animation" width="700" src="https://gitcdn.xyz/cdn/mischah/ibrew/19be4c127197f92ff6c4b24c746d6d08ceabd7c7/demo.svg" />
+    <img alt="Demo animation" width="700" src="https://gitcdn.xyz/repo/mischah/ibrew/master/demo.svg" />
     </a>
 </p>
 
@@ -19,7 +19,7 @@
 - **Install packages**
   - Browse Homebrew search results and choose a package to install.
 - **Upgrade packages**
-  - Browse installed packages and select the ones you’d like to upgrade.
+  - Browse outdated packages and select the ones you’d like to upgrade.
 - **Uninstall packages**
   - Browser installed packages and select the ones you’d like to remove.
 
@@ -52,17 +52,17 @@ $ ibrew [searchterm] [options]
       ponysay
 
     $ ibrew --upgrade
-    ✔ Found 137 packages
+    ✔ Found 3 outdated packages
 
     ? Which packages you would like to upgrade? (Press <space> to select, <a> to toggle all)
-    ❯ ◯ adns
-      ◯ aom
-      ◯ asciinema
+    ❯ ◯ git
+      ◯ lynx
+      ◯ watchman
 
     $ ibrew --remove
-    ✔ Found 137 packages
+    ✔ Found 136 installed packages
 
-    ? Which packages you would like to uninstall? (Press <space> to select, <a> to toggle all, <i> to invert selection)
+    ? Which packages you would like to uninstall? (Press <space> to select, <a> to toggle all)
     ❯ ◯ adns
       ◯ aom
       ◯ asciinema

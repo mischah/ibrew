@@ -1,10 +1,11 @@
-const { selectInstalledPackage } = require('./lib/installed');
+const { selectPackage } = require('./lib/installed');
 const { executeCommand } = require('./lib/execute-command');
 
 const runRemove = async pageSize => {
-  const { packages } = await selectInstalledPackage({
+  const { packages } = await selectPackage({
     message: 'Which packages you would like to uninstall?',
     validationError: 'Please select at least one package to uninstall.',
+    outdatedOnly: false,
     pageSize
   });
   executeCommand({
