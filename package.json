@@ -9,7 +9,7 @@
   },
   "files": [
     "cli.js",
-    "lib"
+    "ibrew"
   ],
   "keywords": [
     "cli",
@@ -46,7 +46,6 @@
   },
   "dependencies": {
     "execa": "^1.0.0",
-    "get-stream": "^4.1.0",
     "inquirer": "^6.2.2",
     "ipt": "^2.1.0",
     "log-symbols": "^2.2.0",
@@ -76,7 +75,10 @@
       "baumeister",
       "prettier",
       "prettier/unicorn"
-    ]
+    ],
+    "rules": {
+      "unicorn/no-process-exit": "warning"
+    }
   },
   "prettier": {
     "singleQuote": true
