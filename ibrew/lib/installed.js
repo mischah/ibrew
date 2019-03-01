@@ -29,8 +29,15 @@ module.exports.selectPackage = async options => {
 
   spinner.start(`Retrieving ${scope} packages`);
   const installedPackages = await getInstalledPackages(outdatedOnly);
-  const choices = installedPackages.split('\n');
-  spinner.succeed(`Found ${choices.length} ${scope} packages`);
+  const choices = installedPackages.length
+    ? installedPackages.split('\n')
+    : null;
+  if (!choices) {
+    spinner.fail(`Found no ${scope} package(s)`);
+    process.exit(0);
+  }
+
+  spinner.succeed(`Found ${choices.length} ${scope} package(s)`);
   const selected = await inquirer.prompt([
     {
       type: 'checkbox',
