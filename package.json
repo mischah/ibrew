@@ -30,7 +30,7 @@
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "test": "jest",
-    "test:coverage": "nyc --reporter=text --reporter=text-summary --reporter=lcov  jest",
+    "test:coverage": "nyc --reporter=text --reporter=text-summary --reporter=lcov --reporter=html jest",
     "test:watch": "npm run test --silent -- --watch",
     "pretest": "npm run lint:fix --silent",
     "lint": "eslint **/*.js",
