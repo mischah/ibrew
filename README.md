@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://asciinema.org/a/229587">
-    <img alt="Demo animation" width="700" src="https://gitcdn.xyz/repo/mischah/ibrew/master/demo.svg" />
+    <img alt="Demo animation" width="700" src="https://gitcdn.xyz/cdn/mischah/ibrew/19be4c127197f92ff6c4b24c746d6d08ceabd7c7/demo.svg" />
     </a>
 </p>
 
