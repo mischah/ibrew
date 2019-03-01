@@ -9,7 +9,7 @@
   },
   "files": [
     "cli.js",
-    "lib"
+    "ibrew"
   ],
   "keywords": [
     "cli",
@@ -75,7 +75,10 @@
       "baumeister",
       "prettier",
       "prettier/unicorn"
-    ]
+    ],
+    "rules": {
+      "unicorn/no-process-exit": "warning"
+    }
   },
   "prettier": {
     "singleQuote": true

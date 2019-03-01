@@ -2,12 +2,11 @@
 'use strict';
 const meow = require('meow');
 const logSymbols = require('log-symbols');
-const inquirer = require('inquirer');
 const ora = require('ora');
 
-const search = require('./lib/search');
-const { selectInstalledPackage } = require('./lib/installed');
-const { executeCommand } = require('./lib/execute-command');
+const { runUpgrade } = require('./ibrew/run-upgrade');
+const { runRemove } = require('./ibrew/run-remove');
+const { runSearch } = require('./ibrew/run-search');
 
 const cli = meow(
   `
@@ -66,6 +65,7 @@ const cli = meow(
     }
   }
 );
+exports.cli = cli;
 
 const allowedFlags = [
   'upgrade',
@@ -79,12 +79,13 @@ const allowedFlags = [
   'version',
   'v'
 ];
-const [searchTerm] = cli.input;
 const spinner = ora();
+exports.spinner = spinner;
 const defaultPageSize = {
   searchResult: 10,
   installed: 20
 };
+exports.defaultPageSize = defaultPageSize;
 
 if (cli.input.length === 0 && cli.flags.v === true) {
   cli.showVersion();
@@ -114,74 +115,15 @@ process.stdin.on('keypress', (ch, key) => {
 
 // List installed packages to upgrade
 if (cli.flags.upgrade === true) {
-  (async () => {
-    const { packages } = await selectInstalledPackage({
-      message: 'Which packages you would like to upgrade?',
-      validationError: 'Please select at least one package to upgrade.',
-      pageSize: Number(cli.flags.size) || defaultPageSize.installed,
-      spinner
-    });
-
-    executeCommand({
-      command: 'upgrade',
-      packages,
-      spinner,
-      loadingMessage: 'Upgrading selected packages(s)'
-    });
-  })();
+  runUpgrade(Number(cli.flags.size) || defaultPageSize.installed);
 }
 
 // List installed packages to remove
 if (cli.flags.remove === true) {
-  (async () => {
-    const { packages } = await selectInstalledPackage({
-      message: 'Which packages you would like to uninstall?',
-      validationError: 'Please select at least one package to uninstall.',
-      pageSize: Number(cli.flags.size) || defaultPageSize.installed,
-      spinner
-    });
-
-    executeCommand({
-      command: 'remove',
-      packages,
-      spinner,
-      loadingMessage: 'Uninstalling selected packages(s)'
-    });
-  })();
+  runRemove(Number(cli.flags.size) || defaultPageSize.installed);
 }
 
 // Search for a package to install
 if (cli.flags.upgrade === false && cli.flags.remove === false) {
-  (async () => {
-    spinner.start('Searching for packages');
-    const result = await search.getSearchResults(searchTerm);
-    if (!result) {
-      spinner.info(`No formula or cask found for \`${searchTerm}\`.`);
-      process.exit(0);
-    }
-
-    const choices = search.getInquirerChoices(result);
-    spinner.succeed(
-      `Found ${
-        choices.filter(choice => typeof choice === 'string').length
-      } packages\n`
-    );
-
-    const selected = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'package',
-        message: 'Which package you would like to install?',
-        pageSize: Number(cli.flags.size) || defaultPageSize.searchResult,
-        choices
-      }
-    ]);
-
-    executeCommand({
-      command: 'install',
-      packages: [selected.package],
-      spinner,
-      loadingMessage: `Installing \`${selected.package}\``
-    });
-  })();
+  runSearch(cli.input, Number(cli.flags.size) || defaultPageSize.searchResult);
 }

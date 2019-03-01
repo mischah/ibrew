@@ -1,5 +1,8 @@
 const execa = require('execa');
 const inquirer = require('inquirer');
+const ora = require('ora');
+
+const spinner = ora();
 
 const getInstalledPackages = async () => {
   const { stdout: result } = await execa('brew', ['list']);
@@ -7,7 +10,7 @@ const getInstalledPackages = async () => {
 };
 
 module.exports.selectInstalledPackage = async options => {
-  const { message, validationError, pageSize, spinner } = options;
+  const { message, validationError, pageSize } = options;
   spinner.start(`Retrieving installed packages`);
   const installedPackages = await getInstalledPackages();
   const choices = installedPackages.split('\n');
