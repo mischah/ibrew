@@ -4,17 +4,33 @@ const ora = require('ora');
 
 const spinner = ora();
 
-const getInstalledPackages = async () => {
-  const { stdout: result } = await execa('brew', ['list']);
+const getInstalledPackages = async outdatedOnly => {
+  const { stdout: result } = await execa('brew', [
+    outdatedOnly ? 'outdated' : 'list'
+  ]);
   return result;
 };
 
-module.exports.selectInstalledPackage = async options => {
-  const { message, validationError, pageSize } = options;
-  spinner.start(`Retrieving installed packages`);
-  const installedPackages = await getInstalledPackages();
+const updateBrew = async () => {
+  const { stdout: result } = await execa('brew', ['update']);
+  return result;
+};
+
+module.exports.selectPackage = async options => {
+  const { message, validationError, outdatedOnly, pageSize } = options;
+  const scope = outdatedOnly ? 'outdated' : 'installed';
+
+  if (outdatedOnly) {
+    spinner.start(`Looking for Homebrew updates`);
+    const outputFromHomebrew = await updateBrew();
+    spinner.succeed(`Finished Homebrew update`);
+    console.log(`${outputFromHomebrew}\n`);
+  }
+
+  spinner.start(`Retrieving ${scope} packages`);
+  const installedPackages = await getInstalledPackages(outdatedOnly);
   const choices = installedPackages.split('\n');
-  spinner.succeed(`Found ${choices.length} packages\n`);
+  spinner.succeed(`Found ${choices.length} ${scope} packages`);
   const selected = await inquirer.prompt([
     {
       type: 'checkbox',

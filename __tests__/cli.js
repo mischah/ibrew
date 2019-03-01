@@ -91,7 +91,7 @@ describe('Inquirer installed packages list', async () => {
   let response;
 
   beforeAll(async () => {
-    const stream = execa(cli, ['--upgrade']);
+    const stream = execa(cli, ['--remove']);
 
     stream.stdout.on('data', data => {
       response = response + data.toString().trim();
@@ -103,7 +103,7 @@ describe('Inquirer installed packages list', async () => {
   });
 
   test('asks the correct question', () => {
-    expect(response[0]).toMatch('Which packages you would like to upgrade?');
+    expect(response[0]).toMatch('Which packages you would like to uninstall?');
   });
 
   test('renders installed packages as checkbox', () => {

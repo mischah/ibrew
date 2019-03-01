@@ -1,10 +1,11 @@
-const { selectInstalledPackage } = require('./lib/installed');
+const { selectPackage } = require('./lib/installed');
 const { executeCommand } = require('./lib/execute-command');
 
 const runUpgrade = async pageSize => {
-  const { packages } = await selectInstalledPackage({
+  const { packages } = await selectPackage({
     message: 'Which packages you would like to upgrade?',
     validationError: 'Please select at least one package to upgrade.',
+    outdatedOnly: true,
     pageSize
   });
   executeCommand({
