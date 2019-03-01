@@ -46,7 +46,6 @@
   },
   "dependencies": {
     "execa": "^1.0.0",
-    "get-stream": "^4.1.0",
     "inquirer": "^6.2.2",
     "ipt": "^2.1.0",
     "log-symbols": "^2.2.0",
