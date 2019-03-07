@@ -78,6 +78,7 @@ $ ibrew [searchterm] [options]
 
 Awesome interactive CLI apps:
 
+- [Emma](https://github.com/maticzav/emma-cli) – Interactive CLI to search and install npm packages
 - [itunes-remote](https://github.com/mischah/itunes-remote) – Control iTunes via CLI :notes:
 - [ntl](https://github.com/ruyadorno/ntl) – Interactive cli menu to list/run npm tasks
 - [itrash](https://github.com/ruyadorno/itrash) – Interactively selects files to delete from current folder in the CLI
