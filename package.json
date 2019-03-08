@@ -1,6 +1,6 @@
 {
   "name": "ibrew",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Interactive CLI for Homebrew – the missing package manager for macOS.",
   "bin": "cli.js",
   "repository": "mischah/ibrew",
